@@ -1,6 +1,6 @@
 ## Why
 
-Spectopus monetizes skill generation and retrieval via micropayments. The x402 protocol enables any agent or client to pay per-request in USDC without accounts or API keys. Bazaar auto-indexing makes the endpoints discoverable by any agent.
+Skillhub monetizes skill generation and retrieval via micropayments. The x402 protocol enables any agent or client to pay per-request in USDC without accounts or API keys. Bazaar auto-indexing makes the endpoints discoverable by any agent.
 
 ## What Changes
 

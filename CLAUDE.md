@@ -13,7 +13,7 @@ No test or lint infrastructure exists yet.
 
 ## Architecture
 
-**Spectopus** is an HTTP API that generates AI-powered Agent Skills (`SKILL.md` files) from Ethereum smart contract addresses. Skills are gated behind x402 micropayments (USDC on Base Mainnet) and stored on IPFS via Pinata.
+**Skillhub** is an HTTP API that generates AI-powered Agent Skills (`SKILL.md` files) from Ethereum smart contract addresses. Skills are gated behind x402 micropayments (USDC on Base Mainnet) and stored on IPFS via Pinata.
 
 ### Request Flow
 

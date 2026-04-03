@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Spectopus is an HTTP API server that generates [Agent Skills](https://agentskills.io/specification.md) (SKILL.md files) from smart contract addresses. It uses a multi-stage AI pipeline (research → generate → validate), stores results on IPFS via Pinata, and gates endpoints behind x402 micropayments (USDC on Base Mainnet).
+Skillhub is an HTTP API server that generates [Agent Skills](https://agentskills.io/specification.md) (SKILL.md files) from smart contract addresses. It uses a multi-stage AI pipeline (research → generate → validate), stores results on IPFS via Pinata, and gates endpoints behind x402 micropayments (USDC on Base Mainnet).
 
 ## Repository Layout
 

@@ -1,6 +1,6 @@
 ## Why
 
-The HTTP API is the public interface of Spectopus. Clients need to trigger generation, poll for progress, and retrieve completed skills. The session store is the glue that tracks in-flight pipeline state between those calls.
+The HTTP API is the public interface of Skillhub. Clients need to trigger generation, poll for progress, and retrieve completed skills. The session store is the glue that tracks in-flight pipeline state between those calls.
 
 ## What Changes
 

@@ -1,6 +1,6 @@
-# Spectopus — Technical Specification
+# Skillhub — Technical Specification
 
-> Core architectural decisions for the Spectopus skill generation service.
+> Core architectural decisions for the Skillhub skill generation service.
 > Implementation details live in [OpenSpec changes](../openspec/changes/).
 > Derived from [Requirements](./Requirements.md).
 
@@ -8,7 +8,7 @@
 
 ```
 ┌──────────────────────────────────────────────────┐
-│                Spectopus Server                  │
+│                Skillhub Server                  │
 │              (Express + x402 middleware)          │
 │                                                  │
 │  POST /skills/generate ── $0.1 USDC via x402   │

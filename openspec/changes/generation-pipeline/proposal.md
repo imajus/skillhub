@@ -1,6 +1,6 @@
 ## Why
 
-Spectopus's core value is automated SKILL.md generation from a contract address. The generation pipeline — research, generate, validate — is the engine that produces that output.
+Skillhub's core value is automated SKILL.md generation from a contract address. The generation pipeline — research, generate, validate — is the engine that produces that output.
 
 ## What Changes
 

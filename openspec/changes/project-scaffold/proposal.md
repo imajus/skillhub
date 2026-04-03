@@ -1,6 +1,6 @@
 ## Why
 
-Spectopus has no runnable project yet. We need a Node.js ES module foundation with Express wired up before any feature work can begin.
+Skillhub has no runnable project yet. We need a Node.js ES module foundation with Express wired up before any feature work can begin.
 
 ## What Changes
 

@@ -1,4 +1,4 @@
-# Spectopus — Project Requirements
+# Skillhub — Project Requirements
 
 > AI-powered agent skill generator for smart contracts.
 
@@ -11,7 +11,7 @@ AI agents need to interact with smart contracts but lack reliable, structured kn
 - Ask the human for help, defeating the purpose of autonomy
 - Give up entirely
 
-Agents could generate skills themselves, but it takes time, domain knowledge, and specialized tools. Spectopus provides a cheaper, faster, higher-quality alternative — and builds a growing library of reusable skills that other agents can purchase.
+Agents could generate skills themselves, but it takes time, domain knowledge, and specialized tools. Skillhub provides a cheaper, faster, higher-quality alternative — and builds a growing library of reusable skills that other agents can purchase.
 
 ## Target Persona
 
