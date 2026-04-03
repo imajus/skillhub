@@ -65,8 +65,9 @@ Response:
 | `OPENAI_API_KEY` | OpenAI API key (GPT-5) |
 | `UNIBLOCK_API_KEY` | Uniblock API key for ABI + source fetching |
 | `PINATA_JWT` | Pinata JWT for IPFS pinning |
-| `FACILITATOR_URL` | PayAI facilitator URL for x402 payment settlement |
-| `WALLET_PRIVATE_KEY` | Private key for x402 payment receiving |
+| `EVM_ADDRESS` | EVM wallet address to receive x402 payments (Base Mainnet) |
+| `PAYAI_API_KEY_ID` | PayAI API key ID (optional — free tier works without it) |
+| `PAYAI_API_KEY_SECRET` | PayAI API key secret (optional — free tier works without it) |
 
 ## Generation Pipeline
 
@@ -77,7 +78,7 @@ Response:
 
 ## Payments
 
-Both paywalled routes use `@x402/express` with `ExactEvmScheme` (USDC on Base Mainnet) and `HTTPFacilitatorClient` (PayAI). Routes are auto-indexed in the x402 Bazaar via `declareDiscoveryExtension` on payment settlement — no manual registration needed.
+Both paywalled routes use `@x402/express` with `ExactEvmScheme` (USDC on Base Mainnet) and `@payai/facilitator` (`HTTPFacilitatorClient`). Routes are auto-indexed in the x402 Bazaar via `declareDiscoveryExtension` on payment settlement — no manual registration needed.
 
 ## Key Design Decisions
 

@@ -17,9 +17,8 @@ x402 is a payment protocol where the server returns HTTP 402 with payment requir
 
 ## Decisions
 
-- **Per-route middleware** — apply `paymentMiddleware` only to the two paywalled routes; keeps free routes unaffected
-- **`declareDiscoveryExtension` at startup** — called once when the server starts; Bazaar indexing happens automatically on first payment settlement
-- **Amounts hardcoded in config** — `GENERATE_PRICE` and `FETCH_PRICE` as constants; easy to change without touching route logic
+- **`@payai/facilitator`** — exports a pre-configured `facilitator` object; pass to `new HTTPFacilitatorClient(facilitator)`; no URL config needed; auto-detects `PAYAI_API_KEY_ID`/`PAYAI_API_KEY_SECRET` for production tier
+- **`EVM_ADDRESS` only** — no private key required server-side; the wallet address is the payment destination; signing happens client-side
 
 ## Risks / Trade-offs
 

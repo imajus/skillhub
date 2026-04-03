@@ -36,7 +36,7 @@
 
 - **Runtime:** Node.js (ES modules)
 - **Framework:** Express
-- **Payments:** `@x402/express` v2 + PayAI facilitator (`HTTPFacilitatorClient`) + `ExactEvmScheme` — USDC on Base Mainnet
+- **Payments:** `@x402/express` + `@x402/evm` (`ExactEvmScheme`) + `@x402/core` (`HTTPFacilitatorClient`) + `@payai/facilitator` — USDC on Base Mainnet; `EVM_ADDRESS` receives payments; free tier requires no API keys
 - **Discovery:** x402 Bazaar (auto-indexed by PayAI facilitator during payment settlement, via `declareDiscoveryExtension`)
 - **Storage:** IPFS via Pinata SDK (`@pinata/sdk`) — content-addressed, pinned, permanent public URLs
 - **AI:** LangChain (`@langchain/core`, `@langchain/openai`) + LangGraph (`@langchain/langgraph`) for ReAct agent

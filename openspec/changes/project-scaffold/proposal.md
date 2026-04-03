@@ -18,4 +18,4 @@ Spectopus has no runnable project yet. We need a Node.js ES module foundation wi
 ## Impact
 
 - New project root files: `package.json`, `src/index.js`, `.env.example`, `.gitignore`
-- Dependencies: `express`, `dotenv`, `@x402/express`, `@pinata/sdk`, `@langchain/core`, `@langchain/openai`, `@langchain/langgraph`
+- Dependencies: `express`, `dotenv`, `@x402/express`, `@x402/evm`, `@x402/core`, `@payai/facilitator`, `@pinata/sdk`, `@langchain/core`, `@langchain/openai`, `@langchain/langgraph`
