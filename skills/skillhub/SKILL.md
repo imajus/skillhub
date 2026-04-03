@@ -81,7 +81,7 @@ automatically detects the 402, signs an EIP-3009 `TransferWithAuthorization`
 for USDC, and retries with the payment header:
 
 ```bash
-ows pay request "http://skillhub.majus.app/skills/generate" \
+ows pay request "http://skills.majus.app/skills/generate" \
   --wallet <wallet-name> \
   --method POST \
   --body '{"contractAddress":"0x...","chainId":"eip155:8453"}'
@@ -104,7 +104,7 @@ Poll every **30 seconds**. The `state` field transitions:
 - `"failed"` — `reason` field explains the failure
 
 ```bash
-curl https://skillhub.majus.app/skills/status/<sessionId>
+curl https://skills.majus.app/skills/status/<sessionId>
 ```
 
 **Response when ready**
@@ -119,7 +119,7 @@ Polling loop:
 async function waitForSkill(sessionId, maxAttempts = 20, intervalMs = 30000) {
   for (let i = 0; i < maxAttempts; i++) {
     const res = await fetch(
-      `https://skillhub.majus.app/skills/status/${sessionId}`,
+      `https://skills.majus.app/skills/status/${sessionId}`,
     );
     const data = await res.json();
     if (data.state === "ready") return data.skillId;
@@ -142,7 +142,7 @@ async function waitForSkill(sessionId, maxAttempts = 20, intervalMs = 30000) {
 The response body is the raw SKILL.md content (`text/markdown`). Use `ows pay request`:
 
 ```bash
-ows pay request "http://skillhub.majus.app/skills/<skillId>" --wallet <wallet-name>
+ows pay request "http://skills.majus.app/skills/<skillId>" --wallet <wallet-name>
 ```
 
 ---
