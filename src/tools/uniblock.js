@@ -42,7 +42,9 @@ async function getABI(address, chainId) {
 export async function fetchABI(contractAddress, chainId) {
   const abi = await getABI(contractAddress, chainId);
   const names = new Set(abi.filter(e => e.type === 'function').map(e => e.name));
-  if (names.has('implementation') && names.has('upgradeTo')) {
+  const events = new Set(abi.filter(e => e.type === 'event').map(e => e.name));
+  const isProxy = (names.has('implementation') && names.has('upgradeTo')) || events.has('Upgraded');
+  if (isProxy || abi.length === 0) {
     const impl = await resolveProxy(contractAddress, chainId);
     if (impl) return getABI(impl, chainId);
   }
