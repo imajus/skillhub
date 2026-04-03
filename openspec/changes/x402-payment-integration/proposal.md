@@ -18,5 +18,6 @@ Spectopus monetizes skill generation and retrieval via micropayments. The x402 p
 ## Impact
 
 - Modifies `src/routes/skills.js` (or `src/index.js`) to apply x402 middleware
-- New env vars: `WALLET_PRIVATE_KEY` (or equivalent signer config), `FACILITATOR_URL`
-- Dependencies: `@x402/express` (already in package.json from project-scaffold)
+- New env vars: `EVM_ADDRESS` (wallet address to receive payments)
+- Optional production env vars: `PAYAI_API_KEY_ID`, `PAYAI_API_KEY_SECRET`
+- Dependencies: `@x402/express`, `@x402/evm`, `@x402/core`, `@payai/facilitator`
