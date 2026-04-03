@@ -22,12 +22,12 @@ Sign and broadcast EVM smart contract calls using `ows` CLI + a local `encode-tx
 ### 1. Encode the transaction
 
 ```bash
-node {baseDir}/scripts/encode-tx.mjs <to> <chainId> "<funcName(types...)>" [arg1 arg2 ...]
+node {baseDir}/scripts/encode-tx.mjs <to> <eip155:chainId> "<funcName(types...)>" [arg1 arg2 ...]
 ```
 
 **Arguments:**
 - `to` — contract address
-- `chainId` — numeric chain ID (e.g. `8453` for Base)
+- `eip155:chainId` — CAIP-2 chain ID (e.g. `eip155:8453` for Base)
 - `funcName(types...)` — full function signature (e.g. `"transfer(address,uint256)"`)
 - `args` — space-separated values; auto-coerced by type:
   - `uint*/int*` → BigInt
@@ -35,7 +35,7 @@ node {baseDir}/scripts/encode-tx.mjs <to> <chainId> "<funcName(types...)>" [arg1
   - `bytes32` → passed as-is (use `0x000...000` for zero hash)
   - everything else → string
 
-Optionally pass `--address <0x...> --rpc-url <url>` to auto-fetch the current nonce from the chain.
+Optionally pass `--address <0x...>` to auto-fetch the current nonce from the chain using viem's default RPC.
 
 ### 2. Sign and broadcast
 
@@ -43,9 +43,8 @@ Optionally pass `--address <0x...> --rpc-url <url>` to auto-fetch the current no
 ows sign send-tx \
   --wallet <wallet-name> \
   --chain eip155:<chainId> \
-  --rpc-url <rpc-url> \
-  --tx $(node {baseDir}/scripts/encode-tx.mjs <to> <chainId> "<sig>" [args...] \
-    --address <sender-address> --rpc-url <rpc-url>)
+  --tx $(node {baseDir}/scripts/encode-tx.mjs <to> eip155:<chainId> "<sig>" [args...] \
+    --address <sender-address>)
 ```
 
 Use `OWS_API_KEY=<key>` env var if authenticating via API key instead of passphrase.
@@ -62,14 +61,12 @@ ows wallet list | grep -A5 "Name:.*<wallet-name>" | grep "eip155" | awk '{print 
 OWS_API_KEY="ows_key_..." ows sign send-tx \
   --wallet my-wallet \
   --chain eip155:8453 \
-  --rpc-url https://mainnet.base.org \
   --tx $(node {baseDir}/scripts/encode-tx.mjs \
     0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913 \
-    8453 \
+    eip155:8453 \
     "transfer(address,uint256)" \
     0xRecipientAddress 1000000 \
-    --address 0xYourAddress \
-    --rpc-url https://mainnet.base.org)
+    --address 0xYourAddress)
 ```
 
 > `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` is USDC on Base. `1000000` = 1 USDC (6 decimals).
@@ -78,5 +75,5 @@ OWS_API_KEY="ows_key_..." ows sign send-tx \
 
 - `encode-tx.mjs` requires `viem` — install with `npm install viem` in the project directory
 - Default gas: 300,000 — adjust in `encode-tx.mjs` if needed
-- Without `--address`/`--rpc-url`, nonce defaults to `0` or `TX_NONCE` env var
+- Without `--address`, nonce defaults to `0` or `TX_NONCE` env var
 - `{baseDir}` resolves to the skill directory at runtime

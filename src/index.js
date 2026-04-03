@@ -1,4 +1,7 @@
 import 'dotenv/config';
+import { readFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import express from 'express';
 import { paymentMiddleware, x402ResourceServer } from '@x402/express';
 import { ExactEvmScheme } from '@x402/evm/exact/server';
@@ -49,9 +52,14 @@ const paymentRoutes = {
 
 const app = express();
 app.use(express.json());
+app.use(express.static('public'));
 app.use(paymentMiddleware(paymentRoutes, resourceServer));
 app.use('/skills', skillsRouter);
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const skillMd = readFileSync(resolve(__dirname, '../skills/skillhub/SKILL.md'), 'utf8');
+
+app.get('/skill.md', (_req, res) => res.type('text/markdown').send(skillMd));
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 
 const port = process.env.PORT ?? 3000;

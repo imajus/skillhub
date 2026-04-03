@@ -50,3 +50,10 @@ EVM_ADDRESS        # wallet receiving x402 payments (Base Mainnet)
 Optional: `PORT` (default 3000), `OPENAI_MODEL` (default gpt-4o), `PINATA_GATEWAY`, `PAYAI_API_KEY_ID`, `PAYAI_API_KEY_SECRET`.
 
 Copy `.env.example` to `.env` before running.
+
+## Agent Skills (`skills/`)
+
+Two skills ship with the repository:
+
+- **`skills/skillhub/SKILL.md`** — Skillhub's own agent skill. Describes how to call the API, handle x402 payments via OWS CLI, and poll for generation completion. Served at `GET /skill.md`.
+- **`skills/ows-sign/SKILL.md`** — EVM transaction signing helper. Uses `ows` CLI + `scripts/encode-tx.mjs` to encode, sign, and broadcast smart contract calls without exposing private keys. Accepts chain IDs in CAIP-2 format (`eip155:8453`); uses viem's built-in chain RPC defaults.

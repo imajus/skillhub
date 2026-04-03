@@ -1,22 +1,24 @@
 #!/usr/bin/env node
-// Usage: node encode-tx.mjs <to> <chainId> <"funcName(type1,type2,...)"> [arg1 arg2 ...] [--address <0x...> --rpc-url <url>]
+// Usage: node encode-tx.mjs <to> <eip155:chainId> <"funcName(type1,type2,...)"> [arg1 arg2 ...] [--address <0x...>]
 
 import { encodeFunctionData, serializeTransaction, parseGwei, parseAbiItem, createPublicClient, http } from 'viem';
+import * as chains from 'viem/chains';
 
-// Extract optional --address and --rpc-url flags (splice higher index first to avoid shifting)
+// Extract optional --address flag
 const argv = process.argv.slice(2);
-const indices = ['--address', '--rpc-url'].map(f => [f, argv.indexOf(f)]).sort((a, b) => b[1] - a[1]);
-const extracted = {};
-for (const [flag, idx] of indices) extracted[flag] = idx !== -1 ? argv.splice(idx, 2)[1] : null;
-const address = extracted['--address'];
-const rpcUrl = extracted['--rpc-url'];
+const addrIdx = argv.indexOf('--address');
+let address = null;
+if (addrIdx !== -1) { address = argv.splice(addrIdx, 2)[1]; }
 
-const [to, chainId, sig, ...rawArgs] = argv;
+const [to, chainArg, sig, ...rawArgs] = argv;
 
-if (!to || !chainId || !sig) {
-  console.error('Usage: node encode-tx.mjs <to> <chainId> <"funcName(types...)"> [args...] [--wallet <name> --rpc-url <url>]');
+if (!to || !chainArg || !sig) {
+  console.error('Usage: node encode-tx.mjs <to> <eip155:chainId> <"funcName(types...)"> [args...] [--address <0x...>]');
   process.exit(1);
 }
+
+const chainId = Number(chainArg.startsWith('eip155:') ? chainArg.slice(7) : chainArg);
+const chain = Object.values(chains).find(c => c.id === chainId);
 
 const abiItem = parseAbiItem(`function ${sig}`);
 
@@ -31,13 +33,13 @@ const args = abiItem.inputs.map((input, i) => {
 const data = encodeFunctionData({ abi: [abiItem], functionName: abiItem.name, args });
 
 let nonce = Number(process.env.TX_NONCE ?? 0);
-if (address && rpcUrl) {
-  const client = createPublicClient({ transport: http(rpcUrl) });
+if (address) {
+  const client = createPublicClient({ chain, transport: http() });
   nonce = await client.getTransactionCount({ address });
 }
 
 const serialized = serializeTransaction({
-  chainId: Number(chainId),
+  chainId,
   to,
   data,
   value: 0n,

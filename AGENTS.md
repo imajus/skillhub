@@ -21,6 +21,11 @@ src/
     fetchSourceCode.js  # Uniblock verified source
     detectERCPatterns.js# ERC-20/721/1155 detection from ABI
   storage/ipfs.js       # Pinata upload + private gateway fetch
+skills/
+  skillhub/SKILL.md     # Skillhub's own agent skill; served at GET /skill.md
+  ows-sign/SKILL.md     # EVM transaction signing via OWS CLI (no private key exposure)
+  ows-sign/scripts/
+    encode-tx.mjs       # Encodes calldata + serializes tx; accepts eip155:<chainId> format
 docs/
   Requirements.md
   Specification.md

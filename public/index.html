@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skillhub — AI-Powered Agent Skills for Smart Contracts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --teal-50:  #f0fdfa;
+        --teal-100: #ccfbf1;
+        --teal-200: #99f6e4;
+        --teal-300: #5eead4;
+        --teal-400: #2dd4bf;
+        --teal-500: #14b8a6;
+        --teal-600: #0d9488;
+        --teal-700: #0f766e;
+        --teal-800: #115e59;
+        --teal-900: #134e4a;
+        --gray-50:  #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+        --gray-900: #111827;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 120%;
+      }
+
+      body {
+        font-family: "Outfit", -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--gray-700);
+        background: #fff;
+        line-height: 1.6;
+      }
+
+      h1, h2, h3 {
+        font-family: "Space Grotesk", sans-serif;
+      }
+
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* Header */
+      header {
+        border-bottom: 1px solid var(--gray-200);
+        padding: 16px 0;
+        background: #fff;
+      }
+
+      header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .logo-group span {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--teal-700);
+      }
+
+      header nav a {
+        color: var(--gray-500);
+        text-decoration: none;
+        margin-left: 24px;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      header nav a:hover {
+        color: var(--teal-600);
+      }
+
+      /* Hero */
+      .hero {
+        text-align: center;
+        padding: 80px 0 64px;
+        background: linear-gradient(
+          180deg,
+          var(--teal-50) 0%,
+          #fff 100%
+        );
+      }
+
+      .hero h1 {
+        font-size: 2.75rem;
+        font-weight: 800;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+        letter-spacing: -0.02em;
+        line-height: 1;
+      }
+
+      .hero h1 em {
+        font-style: normal;
+        background: linear-gradient(
+          135deg,
+          var(--teal-600),
+          var(--teal-400)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        color: var(--gray-500);
+        max-width: 600px;
+        margin: 0 auto 32px;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 28px;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.15s ease;
+      }
+
+      .btn-primary {
+        background: var(--teal-600);
+        color: #fff;
+      }
+
+      .btn-primary:hover {
+        background: var(--teal-700);
+      }
+
+      .btn-outline {
+        border: 1.5px solid var(--gray-300);
+        color: var(--gray-600);
+        background: transparent;
+      }
+
+      .btn-outline:hover {
+        border-color: var(--teal-400);
+        color: var(--teal-700);
+      }
+
+      /* Sections */
+      section {
+        padding: 64px 0;
+      }
+
+      section + section {
+        border-top: 1px solid var(--gray-200);
+      }
+
+      .section-label {
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--teal-600);
+        margin-bottom: 8px;
+      }
+
+      section h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 16px;
+      }
+
+      section > .container > p {
+        color: var(--gray-500);
+        max-width: 640px;
+        margin-bottom: 32px;
+      }
+
+      /* Problem cards */
+      .problem-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+
+      .problem-card {
+        background: var(--gray-50);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      .problem-card h3 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: var(--gray-800);
+      }
+
+      .problem-card p {
+        font-size: 0.85rem;
+        color: var(--gray-500);
+      }
+
+      /* How it works */
+      .steps {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .step {
+        flex: 1;
+        min-width: 180px;
+        position: relative;
+        padding-left: 48px;
+      }
+
+      .step-number {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--teal-100);
+        color: var(--teal-700);
+        font-weight: 700;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .step h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: var(--gray-800);
+      }
+
+      .step p {
+        font-size: 0.85rem;
+        color: var(--gray-500);
+      }
+
+      /* Use cases */
+      .use-cases {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .use-case {
+        background: var(--teal-50);
+        border: 1px solid var(--teal-100);
+        border-radius: 10px;
+        padding: 24px;
+      }
+
+      .use-case h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: var(--teal-800);
+      }
+
+      .use-case p {
+        font-size: 0.88rem;
+        color: var(--gray-600);
+      }
+
+      /* Flow diagram */
+      .flow-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .flow-col {
+        background: var(--gray-50);
+        border: 1px solid var(--gray-200);
+        border-radius: 10px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+
+      .flow-col-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--teal-600);
+        margin-bottom: 16px;
+      }
+
+      .flow-box {
+        background: #fff;
+        border: 1px solid var(--gray-300);
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-size: 0.84rem;
+        font-weight: 500;
+        color: var(--gray-700);
+        text-align: center;
+        width: 100%;
+      }
+
+      .flow-box small {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 400;
+        color: var(--gray-400);
+        margin-top: 2px;
+      }
+
+      .flow-box.highlight {
+        background: var(--teal-600);
+        color: #fff;
+        border-color: var(--teal-600);
+      }
+
+      .flow-box.highlight small {
+        color: var(--teal-200);
+      }
+
+      .flow-arrow {
+        color: var(--gray-300);
+        font-size: 1.1rem;
+        line-height: 1;
+        margin: 6px 0;
+      }
+
+      .flow-note {
+        font-size: 0.75rem;
+        color: var(--gray-400);
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      @media (max-width: 640px) {
+        .flow-cols {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* API table */
+      .api-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+      }
+
+      .api-table th {
+        text-align: left;
+        padding: 10px 12px;
+        background: var(--gray-50);
+        color: var(--gray-600);
+        font-weight: 600;
+        border-bottom: 2px solid var(--gray-200);
+      }
+
+      .api-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--gray-100);
+        color: var(--gray-700);
+      }
+
+      .api-table code {
+        background: var(--teal-50);
+        color: var(--teal-700);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.82rem;
+      }
+
+      .price-tag {
+        display: inline-block;
+        background: var(--teal-100);
+        color: var(--teal-700);
+        font-weight: 600;
+        font-size: 0.78rem;
+        padding: 2px 8px;
+        border-radius: 10px;
+      }
+
+      .free-tag {
+        display: inline-block;
+        background: #f0fdf4;
+        color: #16a34a;
+        font-weight: 600;
+        font-size: 0.78rem;
+        padding: 2px 8px;
+        border-radius: 10px;
+      }
+
+      /* Code block */
+      .code-block {
+        background: var(--gray-900);
+        color: #e5e7eb;
+        border-radius: 10px;
+        padding: 24px;
+        overflow-x: auto;
+        font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, monospace;
+        font-size: 0.82rem;
+        line-height: 1.7;
+        margin-top: 24px;
+      }
+
+      .code-block .comment {
+        color: var(--gray-400);
+      }
+      .code-block .keyword {
+        color: var(--teal-300);
+      }
+      .code-block .string {
+        color: #86efac;
+      }
+      .code-block .func {
+        color: #93c5fd;
+      }
+
+      /* Tech stack */
+      .tech-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .tech-badge {
+        background: var(--gray-100);
+        border: 1px solid var(--gray-200);
+        border-radius: 6px;
+        padding: 6px 14px;
+        font-size: 0.82rem;
+        color: var(--gray-700);
+        font-weight: 500;
+      }
+
+      /* Chat UI */
+      .chat-window {
+        background: var(--gray-50);
+        border: 1px solid var(--gray-200);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .chat-titlebar {
+        background: var(--gray-200);
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.8rem;
+        color: var(--gray-500);
+      }
+
+      .chat-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--gray-300);
+      }
+
+      .chat-dot.red { background: #f87171; }
+      .chat-dot.yellow { background: #fbbf24; }
+      .chat-dot.green { background: #34d399; }
+
+      .chat-body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        font-family: "SF Mono", "Fira Code", Menlo, monospace;
+        font-size: 0.82rem;
+        line-height: 1.5;
+      }
+
+      .chat-msg {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .chat-msg .role {
+        font-weight: 700;
+        white-space: nowrap;
+        min-width: 52px;
+      }
+
+      .chat-msg.user .role { color: var(--teal-600); }
+      .chat-msg.agent .role { color: var(--gray-400); }
+      .chat-msg .text { color: var(--gray-600); }
+      .chat-msg.user .text { color: var(--gray-800); }
+
+      .chat-sub {
+        margin-top: 6px;
+        padding-left: 62px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .chat-sub-line {
+        color: var(--gray-400);
+        font-size: 0.78rem;
+      }
+
+      .chat-sub-line::before {
+        content: "→ ";
+        color: var(--teal-400);
+      }
+
+      .chat-ready {
+        color: #059669 !important;
+        font-weight: 600;
+      }
+
+      /* Footer */
+      footer {
+        border-top: 1px solid var(--gray-200);
+        padding: 32px 0;
+        text-align: center;
+        color: var(--gray-400);
+        font-size: 0.82rem;
+      }
+
+      footer a {
+        color: var(--teal-600);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Responsive */
+      @media (max-width: 640px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+        .hero p {
+          font-size: 1rem;
+        }
+        .use-cases {
+          grid-template-columns: 1fr;
+        }
+        .steps {
+          flex-direction: column;
+        }
+        .step {
+          min-width: unset;
+        }
+        header nav a {
+          margin-left: 16px;
+          font-size: 0.82rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="logo-group">
+          <span>Skillhub</span>
+        </div>
+        <nav>
+          <a href="#problem">Problem</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#use-cases">Use Cases</a>
+          <a href="#api">API</a>
+          <a href="#install">Install</a>
+          <a href="/skill.md">SKILL.md</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="container">
+        <h1>Agent Skills for<br /><em>Smart Contracts</em></h1>
+        <p>
+          Turn any EVM contract address into a discoverable, agent-ready
+          SKILL.md &mdash; in seconds. AI-generated, spec-compliant, paid via
+          x402.
+        </p>
+        <div class="hero-buttons">
+          <a href="#how-it-works" class="btn btn-primary">How It Works</a>
+          <a href="/skill.md" class="btn btn-outline">View SKILL.md</a>
+          <a href="https://github.com/imajus/skillhub" class="btn btn-outline">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="problem">
+      <div class="container">
+        <div class="section-label">The Problem</div>
+        <h2>Agents can't reliably use smart contracts</h2>
+        <p>
+          AI agents need to interact with on-chain contracts but lack structured
+          knowledge about how to do so safely and correctly.
+        </p>
+        <div class="problem-grid">
+          <div class="problem-card">
+            <h3>Wasted Tokens</h3>
+            <p>
+              Agents burn context tokens parsing raw ABIs and docs with
+              unreliable results.
+            </p>
+          </div>
+          <div class="problem-card">
+            <h3>Hallucinated Calls</h3>
+            <p>
+              They hallucinate function signatures, causing failed transactions
+              and wasted gas.
+            </p>
+          </div>
+          <div class="problem-card">
+            <h3>Human Bottleneck</h3>
+            <p>
+              Agents ask humans for help, defeating the purpose of autonomy
+              entirely.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works">
+      <div class="container">
+        <div class="section-label">How It Works</div>
+        <h2>Three-stage AI pipeline</h2>
+        <p>
+          Skillhub analyzes contracts through a multi-stage pipeline with
+          built-in validation and safety guardrails.
+        </p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Research</h3>
+            <p>
+              LangGraph ReAct agent fetches the ABI, source code, and detects
+              ERC patterns via Uniblock APIs. Resolves EIP-1967 proxies
+              automatically.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Generate</h3>
+            <p>
+              An LLM produces a spec-compliant SKILL.md with usage patterns,
+              gotchas, safety warnings, and code examples (&lt;500 lines).
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Validate</h3>
+            <p>
+              Frontmatter check, ABI cross-check, and safety scan. Retries
+              generation on failure (max 3 attempts).
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <h3>Store &amp; Serve</h3>
+            <p>
+              Pinned to IPFS via Pinata. The CID becomes the permanent skill ID,
+              accessible to any agent.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="use-cases">
+      <div class="container">
+        <div class="section-label">Use Cases</div>
+        <h2>Who is it for?</h2>
+        <div class="use-cases">
+          <div class="use-case">
+            <h3>Autonomous Agents</h3>
+            <p>
+              Mid-task, your agent encounters a contract it doesn't know. It
+              discovers Skillhub on the Bazaar, pays $0.10 via x402, and gets a
+              working skill &mdash; no human intervention, no API keys.
+            </p>
+          </div>
+          <div class="use-case">
+            <h3>Agent Developers</h3>
+            <p>
+              Building an agent that interacts with multiple contracts? Generate
+              skills programmatically instead of writing each one by hand.
+              Predictable quality at $0.10/skill.
+            </p>
+          </div>
+          <div class="use-case">
+            <h3>DeFi Integrations</h3>
+            <p>
+              Need your agent to swap on Uniswap, lend on Aave, or stake on
+              Lido? Generate a skill for each protocol contract and your agent
+              handles the rest.
+            </p>
+          </div>
+          <div class="use-case">
+            <h3>Skill Marketplaces</h3>
+            <p>
+              Generated skills are open-format SKILL.md files pinned to IPFS.
+              Portable, no lock-in. Discoverable by other agents via x402
+              Bazaar.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="flow">
+      <div class="container">
+        <div class="section-label">User Flow</div>
+        <h2>From contract to skill</h2>
+        <div class="flow-cols">
+          <div class="flow-col">
+            <div class="flow-col-title">Generate</div>
+            <div class="flow-box">Agent</div>
+            <div class="flow-arrow">&darr;</div>
+            <div class="flow-box">POST /skills/generate<small>$0.10 USDC</small></div>
+            <div class="flow-arrow">&darr;</div>
+            <div class="flow-box highlight">Pipeline<small>Research &rarr; Generate &rarr; Validate</small></div>
+            <div class="flow-arrow">&darr;</div>
+            <div class="flow-box">GET /skills/status/:sessionId<small>free &mdash; poll until ready</small></div>
+            <div class="flow-arrow">&darr;</div>
+            <div class="flow-box">IPFS (Pinata)<small>returns skillId (CID)</small></div>
+          </div>
+          <div class="flow-col">
+            <div class="flow-col-title">Download</div>
+            <div class="flow-box">Agent</div>
+            <div class="flow-arrow">&darr;</div>
+            <div class="flow-box">GET /skills/:skillId<small>$0.01 USDC</small></div>
+            <div class="flow-arrow">&darr;</div>
+            <div class="flow-box highlight">SKILL.md</div>
+            <div class="flow-arrow">&darr;</div>
+            <div class="flow-box">Skill installed<small>skillId is the IPFS CID</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="api">
+      <div class="container">
+        <div class="section-label">API Reference</div>
+        <h2>Endpoints</h2>
+        <table class="api-table">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Endpoint</th>
+              <th>Cost</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>POST</code></td>
+              <td><code>/skills/generate</code></td>
+              <td><span class="price-tag">$0.10</span></td>
+              <td>Start skill generation for a contract address</td>
+            </tr>
+            <tr>
+              <td><code>GET</code></td>
+              <td><code>/skills/status/:sessionId</code></td>
+              <td><span class="free-tag">Free</span></td>
+              <td>
+                Poll generation progress; returns <code>skillId</code> when
+                ready
+              </td>
+            </tr>
+            <tr>
+              <td><code>GET</code></td>
+              <td><code>/skills/:skillId</code></td>
+              <td><span class="price-tag">$0.01</span></td>
+              <td>Download the generated SKILL.md by IPFS CID</td>
+            </tr>
+            <tr>
+              <td><code>GET</code></td>
+              <td><code>/skill.md</code></td>
+              <td><span class="free-tag">Free</span></td>
+              <td>Skillhub's own SKILL.md (agent instructions)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <pre class="code-block"><span class="comment">// Generate a skill with x402 payment</span>
+<span class="keyword">const</span> res = <span class="keyword">await</span> <span class="func">fetchWithPayment</span>(<span class="string">'https://skillhub.majus.app/skills/generate'</span>, {
+  method: <span class="string">'POST'</span>,
+  headers: { <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span> },
+  body: JSON.stringify({
+    contractAddress: <span class="string">'0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'</span>,
+    chainId: <span class="string">'eip155:8453'</span>,
+  }),
+});
+
+<span class="keyword">const</span> { sessionId, statusUrl } = <span class="keyword">await</span> res.json();</pre>
+      </div>
+    </section>
+
+    <section id="tech">
+      <div class="container">
+        <div class="section-label">Built With</div>
+        <h2>Technology Stack</h2>
+        <div class="tech-grid">
+          <span class="tech-badge">Node.js + Express</span>
+          <span class="tech-badge">x402 Payments</span>
+          <span class="tech-badge">LangChain + LangGraph</span>
+          <span class="tech-badge">LLM</span>
+          <span class="tech-badge">Uniblock APIs</span>
+          <span class="tech-badge">IPFS (Pinata)</span>
+          <span class="tech-badge">Base Mainnet</span>
+          <span class="tech-badge">x402 Bazaar</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="install">
+      <div class="container">
+        <div class="section-label">Getting Started</div>
+        <h2>Install &amp; use in seconds</h2>
+        <p>
+          Add Skillhub to your agent using the
+          <a href="https://openwallet.sh" style="color: var(--teal-600)">OWS CLI</a> with <a href="https://github.com/imajus/skillhub" style="color: var(--teal-600)">ows-sign skill</a>.
+          Your agent pays per use via x402.
+        </p>
+        <div class="chat-window">
+          <div class="chat-titlebar">
+            <div class="chat-dot red"></div>
+            <div class="chat-dot yellow"></div>
+            <div class="chat-dot green"></div>
+            <span style="margin-left: 8px">Claude — agent session</span>
+          </div>
+          <div class="chat-body">
+            <div class="chat-msg user">
+              <span class="role">you</span>
+              <span class="text">Fetch this skill https://skillhub.majus.app</span>
+            </div>
+            <div>
+              <div class="chat-msg agent">
+                <span class="role">agent</span>
+                <span class="text">Fetching&hellip;</span>
+              </div>
+              <div class="chat-sub">
+                <div class="chat-sub-line">Make x402 payment &mdash; fetching SKILL.md</div>
+                <div class="chat-sub-line">Skill ready. Generate costs $0.10 USDC, download $0.01 USDC</div>
+              </div>
+            </div>
+            <div class="chat-msg user">
+              <span class="role">you</span>
+              <span class="text">Generate skill for 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 on Base.</span>
+            </div>
+            <div>
+              <div class="chat-msg agent">
+                <span class="role">agent</span>
+                <span class="text">Generating&hellip;</span>
+              </div>
+              <div class="chat-sub">
+                <div class="chat-sub-line">Paying $0.10 USDC via x402</div>
+                <div class="chat-sub-line">Research &rarr; Generate &rarr; Validate&hellip;</div>
+                <div class="chat-sub-line">Pinning to IPFS via Pinata</div>
+                <div class="chat-sub-line chat-ready">Ready &mdash; skillId: bafybeig&hellip;</div>
+              </div>
+            </div>
+            <div class="chat-msg user">
+              <span class="role">you</span>
+              <span class="text">Download the skill</span>
+            </div>
+            <div>
+              <div class="chat-msg agent">
+                <span class="role">agent</span>
+                <span class="text">Downloading&hellip;</span>
+              </div>
+              <div class="chat-sub">
+                <div class="chat-sub-line">Paying $0.01 USDC via x402</div>
+                <div class="chat-sub-line chat-ready">SKILL.md installed &mdash; USDC (ERC-20) on Base</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>
+          Skillhub &middot;
+          <a href="/skill.md">SKILL.md</a> &middot;
+          <a href="https://agentskills.io">Agent Skills Spec</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

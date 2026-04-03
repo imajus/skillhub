@@ -62,6 +62,7 @@ All paywalled endpoints are auto-indexed in [x402 Bazaar](https://bazaar.x402.or
 - **Storage:** IPFS via Pinata SDK (content-addressed, pinned; retrieved via dedicated gateway)
 - **Block explorer:** Uniblock API (ABI, verified source, proxy resolution)
 - **EVM client:** viem (used in generated code examples)
+- **Wallet:** [Open Wallet Standard](https://openwallet.sh) (`ows` CLI) via the bundled `ows-sign` skill
 
 ## Setup
 
@@ -95,6 +96,35 @@ Skill generation runs three async stages with up to 3 total attempts (retry with
 3. **Validate** — Three checks: required frontmatter fields, ABI cross-check (code examples match function signatures), safety check (warnings present for payable functions and approval patterns).
 
 On validation failure the reason is passed back to the next generate attempt for self-correction.
+
+## Skillhub skill
+
+`skills/skillhub/SKILL.md` is Skillhub's own agent skill — it tells any compatible agent how to use the Skillhub API: generate a skill for a contract, poll for completion, and download the result via x402 payments using OWS CLI. It is served at `GET /skill.md`.
+
+## ows-sign skill
+
+Skillhub ships a bundled agent skill at `skills/ows-sign/SKILL.md` that enables any Claude Code (or compatible) agent to sign and broadcast EVM transactions using the [Open Wallet Standard](https://openwallet.sh) CLI — without exposing private keys.
+
+### What it does
+
+- Encodes calldata for any contract function via a local `scripts/encode-tx.mjs` helper
+- Signs and broadcasts the encoded transaction through `ows sign` + `ows broadcast`
+- Works on any EVM chain; tested on Base Mainnet (chainId `8453`)
+
+### Prerequisites
+
+- `ows` CLI installed and a wallet configured (`ows wallet list`)
+- `node` available for the encode-tx script
+
+### Usage
+
+Install the skill into your agent session:
+
+```
+/skill skills/ows-sign/SKILL.md
+```
+
+The agent will use the `ows-sign` workflow whenever it needs to call a contract function on-chain.
 
 ## Output format
 
