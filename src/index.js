@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
+import skillsRouter from './routes/skills.js';
 
 const REQUIRED_VARS = [
   'OPENAI_API_KEY',
@@ -16,6 +17,7 @@ if (missing.length) {
 
 const app = express();
 app.use(express.json());
+app.use('/skills', skillsRouter);
 
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 

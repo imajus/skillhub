@@ -1,6 +1,7 @@
 import { createReactAgent } from '@langchain/langgraph/prebuilt';
 import { tool } from '@langchain/core/tools';
 import { z } from 'zod';
+import { ConsoleCallbackHandler } from '@langchain/core/tracers/console';
 import { model } from './model.js';
 import { fetchABI, fetchSourceCode, detectERCPatterns } from '../tools/uniblock.js';
 
@@ -50,7 +51,7 @@ export async function research(contractAddress, chainId) {
       role: 'user',
       content: `Research the smart contract at ${contractAddress} on chainId ${chainId}. Call fetchABI, fetchSourceCode, and detectERCPatterns (pass the ABI JSON from fetchABI). Summarise your findings.`,
     }],
-  });
+  }, { callbacks: [new ConsoleCallbackHandler()] });
 
   return { abi: abi ?? [], source: source ?? null, ercPatterns: ercPatterns ?? [] };
 }
