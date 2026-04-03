@@ -1,8 +1,9 @@
 import 'dotenv/config';
 import express from 'express';
-import { paymentMiddlewareFromConfig } from '@x402/express';
-import { ExactEvmScheme } from '@x402/evm';
-import { facilitator } from '@payai/facilitator';
+import { paymentMiddleware, x402ResourceServer } from '@x402/express';
+import { ExactEvmScheme } from '@x402/evm/exact/server';
+import { HTTPFacilitatorClient } from '@x402/core/server';
+import { facilitator as payaiFacilitator } from '@payai/facilitator';
 import { declareDiscoveryExtension } from '@x402/extensions/bazaar';
 import skillsRouter from './routes/skills.js';
 
@@ -24,18 +25,22 @@ const FETCH_PRICE = '$0.01';
 const NETWORK = 'eip155:8453';
 const payTo = process.env.EVM_ADDRESS;
 
+const facilitatorClient = new HTTPFacilitatorClient(payaiFacilitator);
+const resourceServer = new x402ResourceServer(facilitatorClient)
+  .register(NETWORK, new ExactEvmScheme());
+
 const paymentRoutes = {
   'POST /skills/generate': {
-    accepts: [{ scheme: 'exact', price: GENERATE_PRICE, network: NETWORK, payTo }],
-    extensions: declareDiscoveryExtension({
+    accepts: { scheme: 'exact', price: GENERATE_PRICE, network: NETWORK, payTo },
+    ...declareDiscoveryExtension({
       method: 'POST',
       bodyType: 'json',
       input: { contractAddress: 'Contract address to generate a skill for', chainId: 'EVM chain ID' },
     }),
   },
   'GET /skills/:id': {
-    accepts: [{ scheme: 'exact', price: FETCH_PRICE, network: NETWORK, payTo }],
-    extensions: declareDiscoveryExtension({
+    accepts: { scheme: 'exact', price: FETCH_PRICE, network: NETWORK, payTo },
+    ...declareDiscoveryExtension({
       method: 'GET',
       pathParams: { id: 'Skill CID on IPFS' },
     }),
@@ -44,20 +49,12 @@ const paymentRoutes = {
 
 const app = express();
 app.use(express.json());
-app.use(paymentMiddlewareFromConfig(
-  paymentRoutes,
-  facilitator,
-  [{ network: NETWORK, server: new ExactEvmScheme() }],
-));
+app.use(paymentMiddleware(paymentRoutes, resourceServer));
 app.use('/skills', skillsRouter);
 
 app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 
 const port = process.env.PORT ?? 3000;
-const server = app.listen(port, () => console.log(`Listening on http://localhost:${port}`));
-
-const shutdown = () => server.close(() => process.exit(0));
-process.on('SIGTERM', shutdown);
-process.on('SIGINT', shutdown);
+app.listen(port, () => console.log(`Listening on http://localhost:${port}`));
 
 export { app };
